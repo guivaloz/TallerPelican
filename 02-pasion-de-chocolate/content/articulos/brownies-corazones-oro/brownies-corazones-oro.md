@@ -13,6 +13,6 @@ Haz de este 14 de febrero una fecha inolvidable. Impresiona a tu amor con nuestr
 
 Sólo $79.00 cada uno.
 
-Pedidos por Whatsapp al 87-11-40-85-21
+Pedidos por Whatsapp al 871 712-0000
 
 <img class="img-fluid" src="brownie-corazones-oro-480x480.jpg" alt="Brownies adornados con corazones y chispas de oro">
