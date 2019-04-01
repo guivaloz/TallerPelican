@@ -1,0 +1,169 @@
+{% extends "base.html" %}
+
+{% block title %}{{ SITENAME }}{% endblock %}
+
+{% block meta_tags %}
+    {% if output_file == 'index.html' %}
+    <meta name="description" content="{{ SITEDESCRIPTION }}">
+    <meta name="keywords" content="{{ SITEKEYWORDS }}">
+    <meta name="author" content="{{ AUTHOR }}">
+    <meta itemprop="name" content="{{ SITENAME }}">
+    <meta itemprop="description" content="{{ SITEDESCRIPTION }}">
+    <meta itemprop="image" content="{{ SITEURL }}/{{ SITELOGO }}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="{{ SITETWITTER }}">
+    <meta name="twitter:title" content="{{ SITENAME }}">
+    <meta name="twitter:description" content="{{ SITEDESCRIPTION }}">
+    <meta name="twitter:image:src" content="{{ SITEURL }}/{{ SITELOGO }}">
+    <meta property="og:title" content="{{ SITENAME }}">
+    <meta property="og:type" content="summary">
+    <meta property="og:url" content="{{ SITEURL }}/{{ output_file }}">
+    <meta property="og:image" content="{{ SITEURL }}/{{ SITELOGO }}">
+    <meta property="og:description" content="{{ SITEDESCRIPTION }}">
+    <meta property="og:site_name" content="{{ SITENAME }}">
+    {% else %}
+    <meta name="description" content="Índice de publicaciones.">
+    <meta name="keywords" content="">
+    <meta name="author" content="{{ AUTHOR }}">
+    <meta itemprop="name" content="Índice - {{ SITENAME }}">
+    <meta itemprop="description" content="Índice de publicaciones.">
+    <meta itemprop="image" content="{{ SITEURL }}/{{ SITELOGO }}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="{{ SITETWITTER }}">
+    <meta name="twitter:title" content="Índice - {{ SITENAME }}">
+    <meta name="twitter:description" content="Índice de publicaciones.">
+    <meta name="twitter:image:src" content="{{ SITEURL }}/{{ SITELOGO }}">
+    <meta property="og:title" content="Índice - {{ SITENAME }}">
+    <meta property="og:type" content="summary">
+    <meta property="og:url" content="{{ SITEURL }}/{{ output_file }}">
+    <meta property="og:image" content="{{ SITEURL }}/{{ SITELOGO }}">
+    <meta property="og:description" content="Índice de publicaciones.">
+    <meta property="og:site_name" content="{{ SITENAME }}">
+    {% endif %}
+{% endblock %}
+
+{% block header %}
+    {% if output_file == 'index.html' %}
+        {% include 'header-saec.html' %}
+    {% else %}
+        {% if category == 'comunicados' %}
+            <div class="header-content generic-header-bg">
+                <h1 class="header-text">Comunicados de Prensa</h1>
+            </div>
+        {% elif tag == 'capacitaciones' %}
+            <div class="header-content generic-header-bg">
+                <h1 class="header-text">Capacitaciones</h1>
+            </div>
+        {% elif tag == 'comision-ejecutiva' %}
+            <div class="header-content generic-header-bg">
+                <h1 class="header-text">Comisión Ejecutiva</h1>
+            </div>
+        {% elif tag == 'comite-coordinador' %}
+            <div class="header-content generic-header-bg">
+                <h1 class="header-text">Comité Coordinador</h1>
+            </div>
+        {% elif tag == 'consejo-de-participacion-ciudadana' %}
+            <div class="header-content generic-header-bg">
+                <h1 class="header-text">Consejo de Participación Ciudadana</h1>
+            </div>
+        {% elif tag == 'organo-de-gobierno' %}
+            <div class="header-content generic-header-bg">
+                <h1 class="header-text">Órgano de Gobierno</h1>
+            </div>
+        {% elif tag == 'presentaciones' %}
+            <div class="header-content generic-header-bg">
+                <h1 class="header-text">Presentaciones</h1>
+            </div>
+        {% elif tag == 'reuniones' %}
+            <div class="header-content generic-header-bg">
+                <h1 class="header-text">Reuniones</h1>
+            </div>
+        {% elif tag == 'secretaria-ejecutiva' %}
+            <div class="header-content generic-header-bg">
+                <h1 class="header-text">Secretaría Ejecutiva</h1>
+            </div>
+        {% elif tag == 'sesiones' %}
+            <div class="header-content generic-header-bg">
+                <h1 class="header-text">Sesiones</h1>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if output_file == 'index.html' %}
+        <section class="index-content">
+            {% include 'homepage-highlights.html' %}
+        </section>
+        <section class="index-content">
+            {% include 'homepage-infographics.html' %}
+        </section>
+        <section class="index-content">
+            {% include 'homepage-billboard.html' %}
+        </section>
+    {% endif %}
+        <section class="index-content">
+        {% if articles %}
+            <!-- Indice -->
+            {% for article in articles_page.object_list %}
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <a href="{{ SITEURL }}/{{ article.url }}">
+                                {% if article.image %}
+                                <img class="img-fluid rounded" src="{{ SITEURL }}/{{ article.url }}/{{ article.image }}" alt="Imagen previa">
+                                {% else %}
+                                <img class="img-fluid rounded" src="http://placehold.it/600x300" alt="Imagen previa">
+                                {% endif %}
+                            </a>
+                        </div>
+                        <div class="col-lg-6">
+                            <a href="{{ SITEURL }}/{{ article.url }}"><h2 class="card-title">{{ article.title }}</h2></a>
+                            {{ article.summary }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% if articles_page %}
+            <!-- Paginacion -->
+            <nav>
+                <ul class="pagination justify-content-center">
+                {% if articles_page.has_previous() %}
+                    <li class="page-item">
+                    {% if articles_page.previous_page_number() == 1 %}
+                        <a class="page-link" aria-label="Previous" href="{{ SITEURL }}/{{ page_name }}.html">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Anterior</span>
+                        </a>
+                    {% else %}
+                        <a class="page-link" aria-label="Previous" href="{{ SITEURL }}/{{ page_name }}{{ articles_page.previous_page_number() }}.html">
+                            &#60;&#60;
+                        </a>
+                    {% endif %}
+                    </li>
+                {% endif %}
+                {% for page_number in range(1, 1 + articles_paginator.num_pages) %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ SITEURL }}/{{ page_name }}{{ page_number if page_number > 1 else '' }}.html">
+                            {{ page_number }}
+                        </a>
+                    </li>
+                {% endfor %}
+                {% if articles_page.has_next() %}
+                    <li class="page-item">
+                        <a class="page-link" aria-label="Next" href="{{ SITEURL }}/{{ page_name }}{{ articles_page.next_page_number() }}.html">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Siguiente</span>
+                        </a>
+                    </li>
+                {% endif %}
+                </ul>
+            </nav>
+            {% endif%}
+        {% else %}
+            No hay artículos.
+        {% endif %}
+        </section>
+{% endblock %}

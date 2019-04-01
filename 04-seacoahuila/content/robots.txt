@@ -1,0 +1,2 @@
+User-Agent: *
+Disallow: /author /category /feeds /tag /theme /cpc/secretario-tecnico/aspirantes-documentos /secretaria-ejecutiva/transparencia/art-21-03-directorio /secretaria-ejecutiva/transparencia/art-21-08-perfil-de-puestos-y-curriculum /secretaria-ejecutiva/documentos-en-revision

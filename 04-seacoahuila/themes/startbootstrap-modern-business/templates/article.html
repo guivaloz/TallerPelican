@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} - {{ SITENAME }}{% endblock %}
+
+{% block meta_tags %}
+    <meta name="description" content="{{ article.summary|striptags }}">
+    <meta name="keywords" content="{{ [article.tags|join(', '), article.category]|join(', ') }}">
+    <meta name="author" content="{{ article.author.name }}">
+    <meta itemprop="name" content="{{ article.title }}">
+    <meta itemprop="description" content="{{ article.summary|striptags }}">
+    {% if article.preview %}
+    <meta itemprop="image" content="{{ SITEURL }}/{{ article.url }}{{ article.preview }}">
+    {% elif article.image %}
+    <meta itemprop="image" content="{{ SITEURL }}/{{ article.url }}{{ article.image }}">
+    {% elif article.author.name == 'CPC' %}
+    <meta itemprop="image" content="{{ SITEURL }}/theme/images/cpc.png">
+    {% elif article.author.name == 'Secretaría Ejecutiva' %}
+    <meta itemprop="image" content="{{ SITEURL }}/theme/images/sesaec.png">
+    {% else %}
+    <meta itemprop="image" content="{{ SITEURL }}/theme/images/saec.png">
+    {% endif %}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="{{ SITETWITTER }}">
+    <meta name="twitter:title" content="{{ article.title }}">
+    <meta name="twitter:description" content="{{ article.summary|striptags }}">
+    {% if article.preview %}
+    <meta name="twitter:image:src" content="{{ SITEURL }}/{{ article.url }}{{ article.preview }}">
+    {% elif article.image %}
+    <meta name="twitter:image:src" content="{{ SITEURL }}/{{ article.url }}{{ article.image }}">
+    {% elif article.author.name == 'CPC' %}
+    <meta name="twitter:image:src" content="{{ SITEURL }}/theme/images/cpc.png">
+    {% elif article.author.name == 'Secretaría Ejecutiva' %}
+    <meta name="twitter:image:src" content="{{ SITEURL }}/theme/images/sesaec.png">
+    {% else %}
+    <meta name="twitter:image:src" content="{{ SITEURL }}/theme/images/saec.png">
+    {% endif %}
+    <meta property="og:title" content="{{ article.title }}">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="{{ SITEURL }}/{{ article.url }}">
+    {% if article.preview %}
+    <meta property="og:image" content="{{ SITEURL }}/{{ article.url }}{{ article.preview }}">
+    {% elif article.image %}
+    <meta property="og:image" content="{{ SITEURL }}/{{ article.url }}{{ article.image }}">
+    {% elif article.author.name == 'CPC' %}
+    <meta property="og:image" content="{{ SITEURL }}/theme/images/cpc.png">
+    {% elif article.author.name == 'Secretaría Ejecutiva' %}
+    <meta property="og:image" content="{{ SITEURL }}/theme/images/sesaec.png">
+    {% else %}
+    <meta property="og:image" content="{{ SITEURL }}/theme/images/saec.png">
+    {% endif %}
+    <meta property="og:description" content="{{ article.summary|striptags }}">
+    <meta property="og:site_name" content="{{ SITENAME }}">
+{% endblock %}
+
+{% block header %}
+{% include 'header-saec.html' %}
+{% endblock %}
+
+{% block content %}
+        <!-- Article -->
+        <article>
+            <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "Article",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "{{ SITENAME }}",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "{{ SITEURL }}/{{ SITELOGO }}"
+                    },
+                    "url": "{{ SITEURL }}"
+                },
+                "author": "{{ article.author }}",
+                "name": "{{ article.title }}",
+                "headline": "{{ article.title }}",
+                "description": "{{ article.summary|striptags }}",
+                "dateCreated": "{{ article.date }}",
+                "datePublished": "{{ article.date }}",
+                "dateModified": "{{ article.modified }}",
+                {% if article.image %}
+                "image": "{{ SITEURL }}/{{ article.category }}/{{ article.slug }}/{{ article.image }}",
+                {% else %}
+                "image": "{{ SITEURL }}/{{ SITELOGO }}",
+                {% endif %}
+                "url": "{{ SITEURL }}/{{ article.url }}"
+            }
+            </script>
+            <h1 class="mt-4 mb-3">{{ article.title }}</h1>
+            <p class="article-date">{{ article.date|strftime('%d %B %Y') }}</p>
+            <hr>
+{{ article.content }}
+        </article>
+{% endblock %}

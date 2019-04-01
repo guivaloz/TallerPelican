@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }} - {{ SITENAME }}{% endblock %}
+
+{% block meta_tags %}
+    <meta name="description" content="{{ page.summary|striptags }}">
+    <meta name="keywords" content="{{ [page.tags|join(', '), page.category]|join(', ') }}">
+    <meta name="author" content="{{ page.author.name }}">
+    <meta itemprop="name" content="{{ page.title }}">
+    <meta itemprop="description" content="{{ page.summary|striptags }}">
+{% if page.preview %}
+    <meta itemprop="image" content="{{ SITEURL }}/{{ page.url }}{{ page.preview }}">
+{% elif page.image %}
+    <meta itemprop="image" content="{{ SITEURL }}/{{ page.url }}{{ page.image }}">
+{% elif page.author.name == 'CPC' %}
+    <meta itemprop="image" content="{{ SITEURL }}/theme/images/cpc.png">
+{% elif page.author.name == 'Secretaría Ejecutiva' %}
+    <meta itemprop="image" content="{{ SITEURL }}/theme/images/sesaec.png">
+{% else %}
+    <meta itemprop="image" content="{{ SITEURL }}/theme/images/saec.png">
+{% endif %}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="{{ SITETWITTER }}">
+    <meta name="twitter:title" content="{{ page.title }}">
+    <meta name="twitter:description" content="{{ page.summary|striptags }}">
+{% if page.preview %}
+    <meta name="twitter:image:src" content="{{ SITEURL }}/{{ page.url }}{{ page.preview }}">
+{% elif page.image %}
+    <meta name="twitter:image:src" content="{{ SITEURL }}/{{ page.url }}{{ page.image }}">
+{% elif page.author.name == 'CPC' %}
+    <meta name="twitter:image:src" content="{{ SITEURL }}/theme/images/cpc.png">
+{% elif page.author.name == 'Secretaría Ejecutiva' %}
+    <meta name="twitter:image:src" content="{{ SITEURL }}/theme/images/sesaec.png">
+{% else %}
+    <meta name="twitter:image:src" content="{{ SITEURL }}/theme/images/saec.png">
+{% endif %}
+    <meta property="og:title" content="{{ page.title }}">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="{{ SITEURL }}/{{ page.url }}">
+{% if page.preview %}
+    <meta property="og:image" content="{{ SITEURL }}/{{ page.url }}{{ page.preview }}">
+{% elif page.image %}
+    <meta property="og:image" content="{{ SITEURL }}/{{ page.url }}{{ page.image }}">
+{% elif page.author.name == 'CPC' %}
+    <meta property="og:image" content="{{ SITEURL }}/theme/images/cpc.png">
+{% elif page.author.name == 'Secretaría Ejecutiva' %}
+    <meta property="og:image" content="{{ SITEURL }}/theme/images/sesaec.png">
+{% else %}
+    <meta property="og:image" content="{{ SITEURL }}/theme/images/saec.png">
+{% endif %}
+    <meta property="og:description" content="{{ page.summary|striptags }}">
+    <meta property="og:site_name" content="{{ SITENAME }}">
+{% endblock %}
+
+{% block header %}
+    {% if page.author == 'CC' %}
+        {% include 'header-cc.html' %}
+    {% elif page.author == 'CPC' %}
+        {% include 'header-cpc.html' %}
+    {% elif page.author == 'Secretaría Ejecutiva' %}
+        {% include 'header-sesaec.html' %}
+    {% elif page.author == 'Sistema Anticorrupción del Estado de Coahuila de Zaragoza' %}
+        {% include 'header-saec.html' %}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+        <!-- Page -->
+        <article>
+            <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "BlogPosting",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "{{ SITENAME }}",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "{{ SITEURL }}/{{ SITELOGO }}"
+                    },
+                    "url": "{{ SITEURL }}"
+                },
+                "author": "{{ page.author }}",
+                "name": "{{ page.title }}",
+                "headline": "{{ page.title }}",
+                "description": "{{ page.summary|striptags }}",
+                "dateCreated": "{{ page.date }}",
+                "datePublished": "{{ page.date }}",
+                "dateModified": "{{ page.modified }}",
+                {% if page.image %}
+                "image": "{{ SITEURL }}/{{ page.category }}/{{ page.slug }}/{{ page.image }}",
+                {% else %}
+                "image": "{{ SITEURL }}/{{ SITELOGO }}",
+                {% endif %}
+                "url": "{{ SITEURL }}/{{ page.url }}"
+            }
+            </script>
+            <h1 class="mt-4 mb-3">{{ page.title }}</h1>
+            <hr>
+{{ page.content }}
+        </article>
+{% endblock %}

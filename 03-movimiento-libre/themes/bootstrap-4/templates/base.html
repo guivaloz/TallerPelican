@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% block meta_tags %}{% endblock %}
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="{{ SITEURL }}/favicon.ico">
+    <link rel="icon" href="{{ SITEURL }}/theme/images/icon-hires.png" sizes="192x192">
+    <link rel="icon" href="{{ SITEURL }}/theme/images/icon-normal.png" sizes="128x128">
+    <link rel="apple-touch-icon" href="{{ SITEURL }}/theme/images/apple-touch-icon.png">
+    <link rel="apple-touch-icon" href="{{ SITEURL }}/theme/images/apple-touch-icon-76x76.png" sizes="76x76">
+    <link rel="apple-touch-icon" href="{{ SITEURL }}/theme/images/apple-touch-icon-120x120.png" sizes="120x120">
+    <link rel="apple-touch-icon" href="{{ SITEURL }}/theme/images/apple-touch-icon-152x152.png" sizes="152x152">
+    <link rel="apple-touch-icon" href="{{ SITEURL }}/theme/images/apple-touch-icon-180x180.png" sizes="180x180">
+{% if FEED_ALL_RSS %}
+    <link rel="alternate" href="{{ SITEURL }}/{{ FEED_ALL_RSS }}" type="application/rss+xml" title="{{ SITENAME }} Full RSS Feed" />
+{% endif %}
+{% if USE_REMOTE_SERVICES %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans">
+{%   include 'google-analytics.html' %}
+{% else %}
+    <link rel="stylesheet" href="{{ SITEURL }}/theme/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ SITEURL }}/theme/vendor/font-awesome/css/font-awesome.min.css" type="text/css">
+{% endif %}
+    <link rel="stylesheet" href="{{ SITEURL }}/theme/css/screen.css">
+  </head>
+  <body>
+{% include 'navigation.html' %}
+    <div class="container">
+{% include 'header-welcome.html' %}
+      <div class="row">
+        <div class="col-sm-8">
+{% block content %}{% endblock %}
+        </div>
+        <div class="col-sm-4">
+          <aside>
+{% include 'aside-about.html' %}
+{% include 'aside-tags.html' %}
+{% if USE_REMOTE_SERVICES %}
+{%   include 'aside-search.html' %}
+{% endif %}
+          </aside>
+        </div>
+      </div>
+    </div>
+{% include 'footer.html' %}
+{% if USE_REMOTE_SERVICES %}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+{% else %}
+    <script src="{{ SITEURL }}/theme/vendor/jquery/jquery-3.3.1.min.js"></script>
+    <script src="{{ SITEURL }}/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+{% endif %}
+    <script src="{{ SITEURL }}/theme/js/movimiento-libre.js"></script>
+  </body>
+</html>
+

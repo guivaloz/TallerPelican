@@ -1,2 +1,3 @@
-# TallerPelican
-Taller de Pelican.
+# Taller de Pelican
+
+Por Ing. Guillermo Valdés Lozano
